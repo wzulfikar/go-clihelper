@@ -12,8 +12,13 @@ import (
 var ExitHeader = "Whoops! Something went wrong :("
 var ExitMsg = "\nPress enter to exit.."
 
+func Exit(exitCode int) {
+	Pause(ExitMsg)
+	os.Exit(exitCode)
+}
+
 func ExitWithMessage(msg string, errorCode int) {
-	if errorCode > 0 && len(ExitHeader) > 0 {
+	if errorCode > 0 {
 		oops := fmt.Sprintf("%s\n", color.RedString(ExitHeader))
 
 		if runtime.GOOS == "windows" {
