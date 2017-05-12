@@ -2,7 +2,9 @@ package clihelper
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
+	"log"
 	"os"
 	"runtime"
 
@@ -43,4 +45,12 @@ func CheckError(err error) {
 func Pause(msg string) {
 	fmt.Println(msg)
 	bufio.NewReader(os.Stdin).ReadBytes('\n')
+}
+
+func CaptureOutput(f func()) string {
+	var buf bytes.Buffer
+	log.SetOutput(&buf)
+	f()
+	log.SetOutput(os.Stderr)
+	return buf.String()
 }
